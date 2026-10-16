@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+<div class="page-head">
+  <h1><%= plural %></h1>
+  <a class="btn primary" href="<%= basePath %>/new">+ Add <%= label.toLowerCase() %></a>
+</div>
+<% if (!items.length) { %>
+  <p class="muted">Nothing here yet.</p>
+<% } else { %>
+  <ul class="plain-list">
+    <% items.forEach((i) => { %>
+      <li><a href="<%= basePath %>/<%= i.id %>"><%= i.name %></a></li>
+    <% }) %>
+  </ul>
+<% } %>
+<%- include('../partials/footer') %>

@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+<h1><%= heading %></h1>
+<%- include('../partials/errors', { errors }) %>
+
+<form method="POST" action="<%= action %>" class="form">
+  <label>Title
+    <input type="text" name="title" value="<%= book.title %>" required maxlength="255">
+  </label>
+
+  <label>Author
+    <select name="author_id">
+      <option value="">— none —</option>
+      <% authors.forEach((a) => { %>
+        <option value="<%= a.id %>" <%= String(book.author_id) === String(a.id) ? 'selected' : '' %>><%= a.name %></option>
+      <% }) %>
+    </select>
+  </label>
+
+  <div class="row">
+    <label>Price
+      <input type="number" name="price" value="<%= book.price %>" step="0.01" min="0" required>
+    </label>
+    <label>Quantity
+      <input type="number" name="quantity" value="<%= book.quantity %>" step="1" min="0" required>
+    </label>
+  </div>
+
+    <fieldset>
+    <legend>Genres</legend>
+    <% if (!genres.length) { %><p class="muted">No genres yet. <a href="/genres/new">Add one</a>.</p><% } %>
+    <% genres.forEach((g) => { %>
+      <label class="check">
+        <input type="checkbox" name="genre_ids" value="<%= g.id %>" <%= book.genre_ids.includes(g.id) ? 'checked' : '' %>>
+        <%= g.name %>
+      </label>
+    <% }) %>
+  </fieldset>
+
+  <div class="actions">
+    <button class="btn primary" type="submit">Save</button>
+    <a class="btn" href="<%= isEdit ? action.replace('/edit', '') : '/books' %>">Cancel</a>
+  </div>
+</form>
+<%- include('../partials/footer') %>

@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+<div class="page-head">
+  <h1>Books</h1>
+  <a class="btn primary" href="/books/new">+ Add book</a>
+</div>
+<% if (!books.length) { %>
+  <p class="muted">No books yet.</p>
+<% } else { %>
+  <table>
+    <thead><tr><th>Title</th><th>Author</th><th class="num">Price</th><th class="num">In stock</th></tr></thead>
+    <tbody>
+      <% books.forEach((b) => { %>
+        <tr>
+          <td><a href="/books/<%= b.id %>"><%= b.title %></a></td>
+          <td><%= b.author || '—' %></td>
+          <td class="num">$<%= Number(b.price).toFixed(2) %></td>
+          <td class="num"><%= b.quantity %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+<%- include('../partials/footer') %>

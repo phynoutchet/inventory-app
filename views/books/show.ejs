@@ -1,0 +1,24 @@
+<%- include('../partials/header') %>
+<div class="page-head">
+  <h1><%= book.title %></h1>
+  <a class="btn" href="/books/<%= book.id %>/edit">Edit</a>
+</div>
+
+<dl class="details">
+  <dt>Author</dt>
+  <dd><% if (book.author_id) { %><a href="/authors/<%= book.author_id %>"><%= book.author %></a><% } else { %>—<% } %></dd>
+  <dt>Price</dt><dd>$<%= Number(book.price).toFixed(2) %></dd>
+  <dt>In stock</dt><dd><%= book.quantity %></dd>
+  <dt>Genres</dt>
+  <dd>
+    <% if (!genres.length) { %>—<% } %>
+    <% genres.forEach((g) => { %><a class="chip" href="/genres/<%= g.id %>"><%= g.name %></a><% }) %>
+  </dd>
+</dl>
+
+<form class="danger-zone" method="POST" action="/books/<%= book.id %>/delete"
+      onsubmit="return confirm('Delete this book?')">
+  <label>Admin password <input type="password" name="admin_password" required></label>
+  <button class="btn danger" type="submit">Delete book</button>
+</form>
+<%- include('../partials/footer') %>

@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+<h1><%= heading %></h1>
+<%- include('../partials/errors', { errors }) %>
+
+<form method="POST" action="<%= action %>" class="form">
+  <label>Name
+    <input type="text" name="name" value="<%= item.name %>" required maxlength="100">
+  </label>
+
+  <% if (isEdit) { %>
+    <label>Admin password (required to save changes)
+      <input type="password" name="admin_password" required>
+    </label>
+  <% } %>
+
+  <div class="actions">
+    <button class="btn primary" type="submit">Save</button>
+    <a class="btn" href="<%= isEdit ? action.replace('/edit', '') : basePath %>">Cancel</a>
+  </div>
+</form>
+<%- include('../partials/footer') %>

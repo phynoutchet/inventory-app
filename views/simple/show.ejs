@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+<div class="page-head">
+  <h1><%= item.name %></h1>
+  <a class="btn" href="<%= basePath %>/<%= item.id %>/edit">Edit</a>
+</div>
+
+<h2>Books</h2>
+<% if (!books.length) { %>
+  <p class="muted">No books linked to this <%= label.toLowerCase() %>.</p>
+<% } else { %>
+  <table>
+    <thead><tr><th>Title</th><th class="num">Price</th><th class="num">In stock</th></tr></thead>
+    <tbody>
+      <% books.forEach((b) => { %>
+        <tr>
+          <td><a href="/books/<%= b.id %>"><%= b.title %></a></td>
+          <td class="num">$<%= Number(b.price).toFixed(2) %></td>
+          <td class="num"><%= b.quantity %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<form class="danger-zone" method="POST" action="<%= basePath %>/<%= item.id %>/delete"
+      onsubmit="return confirm('Delete this <%= label.toLowerCase() %>?')">
+  <button class="btn danger" type="submit">Delete <%= label.toLowerCase() %></button>
+</form>
+<%- include('../partials/footer') %>
